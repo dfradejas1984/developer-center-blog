@@ -12,9 +12,9 @@ This blog aims to introduce you to a simple script to help with that.
 
 _**Table of Contents:**_
 
-[Pre-requisites](url)
+[Pre-requisites](#pre-requisites)
 
-[Script Steps](url)
+[Script Steps](#script-steps)
 
 
 * ## Pre-requisites
