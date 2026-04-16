@@ -3,7 +3,7 @@ title: Data Tables Migration between orgs using Python Script
 tags: data-table,python,migration
 date: 2026-04-16
 author: david.fradejas
-image: datatable migration.png
+image: datatable_migration.png
 category: 6
 ---
 
@@ -43,6 +43,7 @@ ORG_B_SECRET=MvsVRWOeu-AQEFRksTUS24myIBBBBBB
 * ## Script Steps
   
 ### Setting Org origin Credentials
+Using enviroment variables, you can organize and get the credentials of your orgs. Easy peasy :)
 ```
 ################# ORIGIN #################
 # Credentials Origin
@@ -61,6 +62,7 @@ tokenOrigin=api_client.access_token
 ```
 
 ### Check credential roles
+Take the credentials of your org, neccesary in case the datatable does not exist on destination, and you should create to a specific division
 ```
 #Check credentials's Roles
 api_oauth = PureCloudPlatformClientV2.OAuthApi(api_client)
@@ -80,10 +82,10 @@ except ApiException as e:
 ```
 
 ### Get Datatable origin schema
+Needed to create the new schema on destination, in case DataTable doesn't exist.
 ```
 architect_api = PureCloudPlatformClientV2.ArchitectApi(api_client)
 while True:
-    #datatable_name = 'DT_SANTANDER_DYNAMIC_MNU'
     datatable_name = input("Enter your Datatable name: ")    
     #Get DataTable schema on previous enviroment
     print("Getting DataTable schema on previous enviroment...")
@@ -111,6 +113,7 @@ print("")
 ```
 
 ### Get Total Datatable Rows
+Usefull to know the total rows and in case you need to make any special change to them. 
 ```
 try:
     # Get Total Datatable Rows
@@ -139,6 +142,7 @@ except ApiException as e:
 ```
 
 ### Use Job to get the origin datatable CSV file
+Using Jobs, you will get the origin Datatable in CSV format.
 ```
 # Using Jobs
 try:
@@ -170,7 +174,7 @@ except ApiException as e:
 ```
 
 ### Setting Org Destination Credentials and check credentials roles
-
+Same as origin, you will get the destination details here.
 ```
 ################# DESTINATION #################
 
@@ -209,6 +213,10 @@ except ApiException as e:
 
 
 ### Check Datatable name unique/get same schema/exist on destination
+
+Main steps on the code. Here you will check if Datatable exists on destination.
+If not, it will create and migrate all rows if you want.
+If exists, it will check schema and if OK, it will prompt you to migrate data.
 
 ```
 architect_api = PureCloudPlatformClientV2.ArchitectApi(api_client)
@@ -269,12 +277,6 @@ if len(api_response.entities)>0: #If Datatable exist on destination
     else:
         print("Error. Datatable schema  mismatch")
         exit()
-```
-
-### If Datatable not exist, should create and migrate data, if needed
-
-
-```
 else:
     #### Create Datatable on destination
     # Get division id by name and prepare Schema
@@ -328,7 +330,9 @@ else:
         exit()
 ```
 
-
+* ## Conclusions
+Using this code, you will be able to migrate datatables between orgs, is usefull and easy to use.
+You can improve the code at the beginning by adding a list of organizations and letting the user select the organization themselves, and then mapping it to the code. That way, by simply modifying the .env file, you can use it for future organizations.
 
 
 
