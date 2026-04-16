@@ -12,6 +12,10 @@ This blog aims to introduce you to a simple script to help with that.
 
 _**Table of Contents:**_
 
+[Pre-requisites](url)
+
+[Script Steps](url)
+
 
 * ## Pre-requisites
 * _**Visual Studio**_
